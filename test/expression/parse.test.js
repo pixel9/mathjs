@@ -819,7 +819,21 @@ describe('parse', function() {
       assert.deepEqual(math.parse('hello("jos")').compile(math).eval(scope), 'hello, jos!');
     });
 
-    it('should parse undefined symbols, defining symbols, and removing symbols', function() {
+      it('should parse nested objects in scope', function() {
+        var scope = {
+          a: {
+            b: {
+              c: 4
+            },
+            d: 5
+          }
+        };
+
+        assert.deepEqual(math.parse('a.b.c').compile(math).eval(scope), 4);
+        assert.deepEqual(math.parse('a.d').compile(math).eval(scope), 5);
+     });
+
+     it('should parse undefined symbols, defining symbols, and removing symbols', function() {
       var scope = {};
       var n = math.parse('q');
       assert.throws(function () { n.compile(math).eval(scope); });
