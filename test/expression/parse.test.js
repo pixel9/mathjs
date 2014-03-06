@@ -600,6 +600,11 @@ describe('parse', function() {
       assert.equal(parseAndEval('2 != 2'), false);
     });
 
+    it('should parse unary <>', function() {
+      assert.equal(parseAndEval('2 <> 3'), true);
+      assert.equal(parseAndEval('2 <> 2'), false);
+    });
+
     it('should parse : (range)', function() {
       assert.ok(parseAndEval('2:5') instanceof Matrix);
       assert.deepEqual(parseAndEval('2:5'), new Matrix([2,3,4,5]));
