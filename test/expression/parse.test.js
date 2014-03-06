@@ -610,6 +610,34 @@ describe('parse', function() {
       assert.equal(parseAndEval('2 <> 2'), false);
     });
 
+    it('should parse condition &&', function() {
+      assert.equal(parseAndEval('true && true'), true);
+      assert.equal(parseAndEval('true && false'), false);
+      assert.equal(parseAndEval('false && true'), false);
+      assert.equal(parseAndEval('false && false'), false);
+    });
+
+    it('should parse condition and', function() {
+      assert.equal(parseAndEval('true and true'), true);
+      assert.equal(parseAndEval('true and false'), false);
+      assert.equal(parseAndEval('false and true'), false);
+      assert.equal(parseAndEval('false and false'), false);
+    });
+
+    it('should parse condition ||', function() {
+      assert.equal(parseAndEval('true || true'), true);
+      assert.equal(parseAndEval('true || false'), true);
+      assert.equal(parseAndEval('false || true'), true);
+      assert.equal(parseAndEval('false || false'), false);
+    });
+
+    it('should parse condition or', function() {
+      assert.equal(parseAndEval('true or true'), true);
+      assert.equal(parseAndEval('true or false'), true);
+      assert.equal(parseAndEval('false or true'), true);
+      assert.equal(parseAndEval('false or false'), false);
+    });
+
     it('should parse : (range)', function() {
       assert.ok(parseAndEval('2:5') instanceof Matrix);
       assert.deepEqual(parseAndEval('2:5'), new Matrix([2,3,4,5]));
