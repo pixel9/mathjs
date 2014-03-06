@@ -1,6 +1,7 @@
 var assert = require('assert'),
     math = require('../../../index')(),
-    string = math.string;
+    string = math.string,
+    concatenate = math.concatenate;
 
 describe('string', function() {
 
@@ -45,6 +46,12 @@ describe('string', function() {
 
   it('should convert a unit to string', function() {
     assert.equal(string(math.unit('5cm')), '50 mm');
+  });
+
+  it('should concatenate two strings', function() {
+    assert.equal(concatenate('hello ', 'world'), 'hello world');
+    assert.equal(concatenate('str', 123), 'str123');
+    assert.equal(concatenate(123, 'str'), '123str');
   });
 
   it('should throw an error if called with wrong number of arguments', function() {

@@ -491,6 +491,11 @@ describe('parse', function() {
       assert.equal(parseAndEval('2 + 3 + 4'), 9);
     });
 
+    it('should parse &', function() {
+      assert.equal(parseAndEval('2 & 3'), '23');
+      assert.equal(parseAndEval('2 & 3 & 4'), '234');
+    });
+
     it('should parse /', function() {
       assert.equal(parseAndEval('4 / 2'), 2);
       assert.equal(parseAndEval('8 / 2 / 2'), 2);
