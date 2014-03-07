@@ -10,7 +10,8 @@ describe('import', function() {
       myvalue: 42,
       hello: function (name) {
         return 'hello, ' + name + '!';
-      }
+      },
+      nullValue: null
     }, {override: true});
   });
 
@@ -39,6 +40,20 @@ describe('import', function() {
       math.add(math.myvalue, 10)
       parser.eval('myvalue + 10');    // 52
       parser.eval('hello("user")');   // 'hello, user!'
+    }
+  });
+
+  it('should parse functions that depend on values', function() {
+    if (math.parser) {
+      var parser = math.parser();
+      math.hello(math.myvalue);
+    }
+  });
+   
+  it('should parse functions that depend on null values', function() {
+    if (math.parser) {
+      var parser = math.parser();
+      math.hello(math.nullValue);
     }
   });
 
