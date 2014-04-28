@@ -362,6 +362,11 @@ describe('parse', function() {
       assert.equal(parseAndEval('false'), false);
     });
 
+    it('should parse inverted boolean values', function () {
+      assert.equal(parseAndEval('!true'), false);
+      assert.equal(parseAndEval('!false'), true);
+    });
+
   });
 
 
