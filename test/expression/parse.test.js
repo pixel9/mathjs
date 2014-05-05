@@ -472,6 +472,17 @@ describe('parse', function() {
         parseAndEval('g(x, 2) = x^2', scope);
       }, SyntaxError);
     });
+
+    it('should import functions and eval case insensitive function name', function() {
+      math.import({
+        myFunc: function (name) {
+          return 'hello, ' + name + '!';
+        }
+      });
+      assert.equal(parseAndEval('myfunc("user")'), 'hello, user!');
+      assert.equal(parseAndEval('myFunc("user")'), 'hello, user!');
+      assert.equal(parseAndEval('MYFUNC("user")'), 'hello, user!');
+    });
   });
 
   describe ('parentheses', function () {
