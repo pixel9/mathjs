@@ -416,6 +416,13 @@ describe('parse', function() {
       assert.throws(function () {parseAndEval('a(j = 3)', {})}, SyntaxError);
     });
 
+    it('should recognize camel case members in scope', function() {
+      var scope = {
+        camelCaseProperty: 0.75
+      };
+      assert.equal(parseAndEval('camelCaseProperty', scope), 0.75);
+    });
+
   });
 
 
