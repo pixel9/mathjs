@@ -416,6 +416,13 @@ describe('parse', function() {
       assert.throws(function () {parseAndEval('a(j = 3)', {})}, SyntaxError);
     });
 
+    it('should recognize camel case members in scope', function() {
+      var scope = {
+        camelCaseProperty: 0.75
+      };
+      assert.equal(parseAndEval('camelCaseProperty', scope), 0.75);
+    });
+
   });
 
 
@@ -471,6 +478,17 @@ describe('parse', function() {
         var scope = {};
         parseAndEval('g(x, 2) = x^2', scope);
       }, SyntaxError);
+    });
+
+    it('should import functions and eval case insensitive function name', function() {
+      math.import({
+        myFunc: function (name) {
+          return 'hello, ' + name + '!';
+        }
+      });
+      assert.equal(parseAndEval('myfunc("user")'), 'hello, user!');
+      assert.equal(parseAndEval('myFunc("user")'), 'hello, user!');
+      assert.equal(parseAndEval('MYFUNC("user")'), 'hello, user!');
     });
   });
 
