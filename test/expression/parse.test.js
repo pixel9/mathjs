@@ -729,6 +729,9 @@ describe('parse', function() {
       assert.equal(parseAndEval('3!+2'), 8);
 
       // TODO: extensively test operator precedence
+      assert.equal(parseAndEval('3 > 2 && false'), false);
+      assert.equal(parseAndEval('(3 > 2) && false'), false);
+      assert.equal(parseAndEval('3 > (2 && false)'), true);
 
     });
   });
