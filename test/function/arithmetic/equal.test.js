@@ -103,6 +103,11 @@ describe('equal', function() {
   it('should throw an error if matrices have different sizes', function() {
     assert.throws(function () {equal([1,4,5], [3,4])});
   });
-
+  
+  it('should return false when comparing any value to null (except for null)', function() {
+    assert.equal(equal('0', null), false);
+    assert.equal(equal('Hello', null), false);
+    assert.equal(equal(null, null), true);
+  });
 
 });
