@@ -1104,7 +1104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @private
 	 */
 	function parseBitwiseConditions () {
-	  var node = parseComparison();
+	  var node = parseConditions();
 
 	  /* TODO: implement bitwise conditions
 	   var operators = {
@@ -1118,7 +1118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   var name = token;
 
 	   getToken();
-	   var params = [node, parseComparison()];
+	   var params = [node, parseConditions()];
 	   node = new OperatorNode(name, fn, params);
 	   }
 	   */
@@ -1134,7 +1134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function parseComparison () {
 	  var node, operators, name, fn, params;
 
-	  node = parseConditions();
+	  node = parseAddSubtract();
 
 	  operators = {
 	    '==': 'equal',
@@ -1150,7 +1150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fn = operators[name];
 
 	    getToken();
-	    params = [node, parseConditions()];
+	    params = [node, parseAddSubtract()];
 	    node = new OperatorNode(name, fn, params);
 	  }
 
@@ -1165,7 +1165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function parseConditions () {
 	  var node, operators, name, fn, params;
 
-	  node = parseAddSubtract();
+	  node = parseComparison();
 
 	  // TODO: precedence of And above Or?
 	  // TODO: implement a method for unit to number conversion
@@ -1186,7 +1186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    fn = operators[name];
 
 	    getToken();
-	    params = [node, parseAddSubtract()];
+	    params = [node, parseComparison()];
 	    node = new OperatorNode(name, fn, params);
 	  }
 
