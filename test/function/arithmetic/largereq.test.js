@@ -94,6 +94,12 @@ describe('largereq', function() {
   it('should throw an error if comparing two matrices of different sizes', function() {
     assert.throws(function () {largereq([1,4,6], [3,4])});
   });
+  
+  it('should return false when comparing any value to null (except for null)', function() {
+    assert.equal(largereq('0', null), false);
+    assert.equal(largereq('Hello', null), false);
+    assert.equal(largereq(null, null), true);
+  });
 
 
 });

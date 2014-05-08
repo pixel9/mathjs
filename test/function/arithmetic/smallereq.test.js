@@ -98,5 +98,11 @@ describe('smallereq', function() {
   it('should throw an error with two matrices of different sizes', function () {
     assert.throws(function () {smallereq([1,4,6], [3,4])});
   });
+  
+  it('should return false when comparing any value to null (except for null)', function() {
+    assert.equal(smallereq('0', null), false);
+    assert.equal(smallereq('Hello', null), false);
+    assert.equal(smallereq(null, null), true);
+  });
 
 });
