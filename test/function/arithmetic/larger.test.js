@@ -94,4 +94,10 @@ describe('larger', function() {
     assert.throws(function () {larger([1,4,6], [3,4])});
   });
 
+  it('should return false when comparing any value to null', function() {
+    assert.equal(larger('0', null), false);
+    assert.equal(larger('Hello', null), false);
+    assert.equal(larger(null, null), false);
+  });
+
 });

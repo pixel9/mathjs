@@ -106,4 +106,10 @@ describe('unequal', function() {
     assert.throws(function () {unequal([1,4,5], [3,4])});
   });
 
+  it('should return false when comparing any value to null (except for null)', function() {
+    assert.equal(unequal('0', null), false);
+    assert.equal(unequal('Hello', null), false);
+    assert.equal(unequal(null, null), true);
+  });
+
 });

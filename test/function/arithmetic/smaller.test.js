@@ -96,4 +96,10 @@ describe('smaller', function() {
     assert.throws(function () {smaller([1,4,6], [3,4])});
   });
 
+  it('should return false when comparing any value to null', function() {
+    assert.equal(smaller('0', null), false);
+    assert.equal(smaller('Hello', null), false);
+    assert.equal(smaller(null, null), false);
+  });
+
 });
