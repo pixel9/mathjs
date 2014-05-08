@@ -15677,7 +15677,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  defs['Unit'] = Unit;
 
 	  if (this.name.indexOf('.') > -1) {
-	    return 'scope.' + this.name;
+
+	    // for expression 'a.b.c.d'
+	    // generate expression 'scope.a && scope.a.b && scope.a.b.c && scope.a.b.c.d || null'
+	    return this.name.split('.')
+	      .reduce(function(exp, param) { 
+	        exp.push( (exp.slice(-1)[0] || '') + '.' + param ); 
+	        return exp; 
+	      }, [])
+	      .map(function(x) { 
+	        return 'scope' + x; 
+	      })
+	      .join(' && ') + ' || null';
 	  }
 
 	  var fallbackName = this.name.toLowerCase();
