@@ -73,6 +73,10 @@ describe('subtract', function() {
     approx.deepEqual(subtract(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(-155.93, 'km'));
   });
 
+  it('should subtract two dates', function() {
+    approx.deepEqual(subtract(new Date(2013, 9, 16), new Date(2013, 9, 6)), 864000000);
+  });
+
   it('should throw an error if subtracting two quantities of different units', function() {
     assert.throws(function () {
       subtract(math.unit(5, 'km'), math.unit(100, 'gram'));
