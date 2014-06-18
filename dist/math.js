@@ -7,7 +7,7 @@
  * mathematical functions, and a flexible expression parser.
  *
  * @version 0.18.1
- * @date    2014-05-08
+ * @date    2014-06-18
  *
  * @license
  * Copyright (C) 2013-2014 Jos de Jong <wjosdejong@gmail.com>
@@ -2082,8 +2082,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// functions - utils
 	exports.clone =  __webpack_require__(217);
-	exports.map =  __webpack_require__(218);
-	exports.forEach =  __webpack_require__(219);
+	exports.map =  __webpack_require__(219);
+	exports.forEach =  __webpack_require__(218);
 	exports.format =  __webpack_require__(220);
 	// exports.print =  require('./function/utils/print'); // TODO: add documentation for print as soon as the parser supports objects.
 	exports['import'] =  __webpack_require__(221);
@@ -5361,6 +5361,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return add(x, +y);
 	    }
 
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return add(+x, +y);
+	    }
+
 	    throw new math.error.UnsupportedTypeError('add', x, y);
 	  };
 	};
@@ -5831,6 +5835,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return equal(x, +y);
 	    }
 
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return equal(+x, +y);
+	    }
+
 	    throw new math.error.UnsupportedTypeError('equal', x, y);
 	  };
 	};
@@ -6208,6 +6216,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new TypeError('No ordering relation is defined for complex numbers');
 	    }
 
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return larger(+x, +y);
+	    }
+
 	    throw new math.error.UnsupportedTypeError('larger', x, y);
 	  };
 	};
@@ -6315,6 +6327,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (isComplex(x) || isComplex(y)) {
 	      throw new TypeError('No ordering relation is defined for complex numbers');
+	    }
+
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return largereq(+x, +y);
 	    }
 
 	    throw new math.error.UnsupportedTypeError('largereq', x, y);
@@ -7530,6 +7546,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      throw new TypeError('No ordering relation is defined for complex numbers');
 	    }
 
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return smaller(+x, +y);
+	    }
+
 	    throw new math.error.UnsupportedTypeError('smaller', x, y);
 	  };
 	};
@@ -7637,6 +7657,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (isComplex(x) || isComplex(y)) {
 	      throw new TypeError('No ordering relation is defined for complex numbers');
+	    }
+
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return smallereq(+x, +y);
 	    }
 
 	    throw new math.error.UnsupportedTypeError('smallereq', x, y);
@@ -7790,6 +7814,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      toNumber = util.number.toNumber,
 	      toBigNumber = util.number.toBigNumber,
 	      isBoolean = util['boolean'].isBoolean,
+	      isString = util.string.isString,
 	      isNumber = util.number.isNumber,
 	      isComplex = Complex.isComplex,
 	      isUnit = Unit.isUnit,
@@ -7906,6 +7931,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    if (isBoolean(y)) {
 	      return subtract(x, +y);
+	    }
+
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return subtract(+x, +y);
 	    }
 
 	    throw new math.error.UnsupportedTypeError('subtract', x, y);
@@ -8118,6 +8147,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    if (isBoolean(y)) {
 	      return unequal(x, +y);
+	    }
+
+	    if (!!x && !!y && isNumber(+x) && isNumber(+y) && (!isUnit(x) && !isUnit(y)) && (!isString(x) && !isString(y))) {
+	      return unequal(+x, +y);
 	    }
 
 	    throw new math.error.UnsupportedTypeError('unequal', x, y);
@@ -18454,14 +18487,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  'name': 'map',
+	  'name': 'forEach',
 	  'category': 'Utils',
 	  'syntax': [
-	    'map(x, callback)'
+	    'forEach(x, callback)'
 	  ],
-	  'description': 'Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.',
+	  'description': 'Iterates over all elements of a matrix/array, and executes the given callback.',
 	  'examples': [
-	    'map([1, 2, 3], function(val) { return math.max(val, 1.5) })'
+	    'forEach([1, 2, 3], function(val) { console.log(val) })'
 	  ],
 	  'seealso': []
 	};
@@ -18472,14 +18505,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  'name': 'forEach',
+	  'name': 'map',
 	  'category': 'Utils',
 	  'syntax': [
-	    'forEach(x, callback)'
+	    'map(x, callback)'
 	  ],
-	  'description': 'Iterates over all elements of a matrix/array, and executes the given callback.',
+	  'description': 'Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.',
 	  'examples': [
-	    'forEach([1, 2, 3], function(val) { console.log(val) })'
+	    'map([1, 2, 3], function(val) { return math.max(val, 1.5) })'
 	  ],
 	  'seealso': []
 	};
