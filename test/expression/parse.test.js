@@ -367,6 +367,15 @@ describe('parse', function() {
       assert.equal(parseAndEval('!false'), true);
     });
 
+    it('should parse boolean values on scope', function() {
+      var scope = {};
+      scope.a = true;
+      scope.b = false;
+      assert.equal(parseAndEval('a', scope), true);
+      assert.equal(parseAndEval('b', scope), false);
+      assert.equal(parseAndEval('Account.IsDeleted', { Account: { IsDeleted: false }}), false);
+    });
+
   });
 
 
