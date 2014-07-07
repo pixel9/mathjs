@@ -7,7 +7,7 @@
  * mathematical functions, and a flexible expression parser.
  *
  * @version 0.18.1
- * @date    2014-06-18
+ * @date    2014-07-07
  *
  * @license
  * Copyright (C) 2013-2014 Jos de Jong <wjosdejong@gmail.com>
@@ -15715,7 +15715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // for expression 'a.b.c.d'
 	    // generate expression 'scope.a && scope.a.b && scope.a.b.c && scope.a.b.c.d || null'
-	    return this.name.split('.')
+	    var expression = this.name.split('.')
 	      .reduce(function(exp, param) { 
 	        exp.push( (exp.slice(-1)[0] || '') + '.' + param ); 
 	        return exp; 
@@ -15723,7 +15723,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      .map(function(x) { 
 	        return 'scope' + x; 
 	      })
-	      .join(' && ') + ' || null';
+	      .join(' && ');
+
+	    return expression + ' !== undefined ? ' + expression + ' : null';
 	  }
 
 	  var fallbackName = this.name.toLowerCase();
