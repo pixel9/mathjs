@@ -2082,8 +2082,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// functions - utils
 	exports.clone =  __webpack_require__(217);
-	exports.map =  __webpack_require__(219);
-	exports.forEach =  __webpack_require__(218);
+	exports.map =  __webpack_require__(218);
+	exports.forEach =  __webpack_require__(219);
 	exports.format =  __webpack_require__(220);
 	// exports.print =  require('./function/utils/print'); // TODO: add documentation for print as soon as the parser supports objects.
 	exports['import'] =  __webpack_require__(221);
@@ -12496,8 +12496,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // create a wrapper around the function
 	        math[name] = function () {
 	          var args = [];
+	          var val = null;
 	          for (var i = 0, len = arguments.length; i < len; i++) {
-	            args[i] = arguments[i] !== null && arguments[i] !== undefined ? arguments[i].valueOf() : arguments[i];
+	            val = arguments[i];
+	            args[i] = val !== null && val !== undefined && !val.value ? val.valueOf() : val;
 	          }
 	          return value.apply(math, args);
 	        };
@@ -18487,14 +18489,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  'name': 'forEach',
+	  'name': 'map',
 	  'category': 'Utils',
 	  'syntax': [
-	    'forEach(x, callback)'
+	    'map(x, callback)'
 	  ],
-	  'description': 'Iterates over all elements of a matrix/array, and executes the given callback.',
+	  'description': 'Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.',
 	  'examples': [
-	    'forEach([1, 2, 3], function(val) { console.log(val) })'
+	    'map([1, 2, 3], function(val) { return math.max(val, 1.5) })'
 	  ],
 	  'seealso': []
 	};
@@ -18505,14 +18507,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  'name': 'map',
+	  'name': 'forEach',
 	  'category': 'Utils',
 	  'syntax': [
-	    'map(x, callback)'
+	    'forEach(x, callback)'
 	  ],
-	  'description': 'Create a new matrix or array with the results of the callback function executed on each entry of the matrix/array.',
+	  'description': 'Iterates over all elements of a matrix/array, and executes the given callback.',
 	  'examples': [
-	    'map([1, 2, 3], function(val) { return math.max(val, 1.5) })'
+	    'forEach([1, 2, 3], function(val) { console.log(val) })'
 	  ],
 	  'seealso': []
 	};
